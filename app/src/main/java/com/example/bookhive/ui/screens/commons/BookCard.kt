@@ -40,7 +40,7 @@ fun BookCard(
         modifier = modifier
             .width(180.dp)
             .height(280.dp)
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(12.dp))
             .clickable {
                 onClick()
             }
@@ -70,8 +70,12 @@ fun BooksDescription(modifier: Modifier = Modifier, title: String?) {
         verticalArrangement = Arrangement.Bottom
     ) {
         if (title != null) {
+            var ans = title
+            if (title.length > 30) {
+                ans = title.substring(0, 29)+"..."
+            }
             Text(
-                text = title,
+                text = ans,
                 fontWeight = FontWeight.Medium,
                 color = Color(0xFFE0E3E2)
             )

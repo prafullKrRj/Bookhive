@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
@@ -22,6 +21,8 @@ import androidx.navigation.NavHostController
 import com.example.bookhive.Screens
 import com.example.bookhive.model.BooksResponse
 import com.example.bookhive.model.Item
+import com.example.bookhive.ui.screens.commons.Error
+import com.example.bookhive.ui.screens.commons.Loading
 import com.example.bookhive.ui.screens.main.components.AppBar
 import com.example.bookhive.ui.screens.main.components.BookType
 import com.example.bookhive.ui.screens.main.components.BooksRow
@@ -33,30 +34,15 @@ fun MainScreen(navController: NavHostController) {
     
     when (state) {
         MainScreenState.Error -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) { Text(
-                text = "Error",
-                fontSize = 22.sp,
-                fontWeight = FontWeight.SemiBold
-            ) }
+            Error()
         }
         MainScreenState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                LinearProgressIndicator()
-            }
+            Loading()
         }
-
         is MainScreenState.Success -> {
-          //  val data = state.books.items[0].volumeInfo.imageLinks.thumbnail
             val map = viewModel.map
             val categories = viewModel.categories
             MUI(
-                text = "hello",
                 navController = navController,
                 map = map,
                 categories = categories
@@ -68,7 +54,6 @@ fun MainScreen(navController: NavHostController) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MUI(
-    text: String,
     navController: NavHostController,
     map: MutableMap<String, BooksResponse>,
     categories: Array<String>,
@@ -94,7 +79,7 @@ fun MUI(
                         BookType(type = string)
                         Spacer(modifier = Modifier.height(8.dp))
                         BooksRow(items = items) {
-
+                            navController.navigate(route = Screens.SEE_MORE_SCREEN.name + "/$string")
                         }
                         Spacer(modifier = Modifier.height(24.dp))
                     }

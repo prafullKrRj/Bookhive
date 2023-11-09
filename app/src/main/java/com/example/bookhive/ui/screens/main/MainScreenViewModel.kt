@@ -44,16 +44,17 @@ class MainScreenViewModel(
         "Business & Economics",
         "History",
     )
+
     var map: MutableMap<String, BooksResponse> = mutableMapOf()
     init {
         for (i in categories) {
-            getBooks(i)
+            getBooks(i, 10*(0..5).random())
         }
     }
-    private fun getBooks(query: String){
+    private fun getBooks(query: String, idx: Int){
         viewModelScope.launch {
             state = try {
-                MainScreenState.Success(booksRepository.searchBooks("subject:$query"))
+                MainScreenState.Success(booksRepository.searchBooks("subject:$query", idx))
             } catch (e: HttpException) {
                 MainScreenState.Error
             } catch (e: IOException) {
@@ -67,9 +68,6 @@ class MainScreenViewModel(
                 }
             }
         }
-    }
-    suspend fun getBooksByCategory(query: String): BooksResponse {
-        return booksRepository.searchBooks(query)
     }
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
