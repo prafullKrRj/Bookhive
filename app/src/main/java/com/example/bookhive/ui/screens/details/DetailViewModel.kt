@@ -6,16 +6,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bookhive.data.BooksRepository
-import com.example.bookhive.model.BookDetail.BookDetail
-import com.example.bookhive.model.BookResponse.BooksResponse
-import com.example.bookhive.ui.screens.more.MoreScreenState
+import com.example.bookhive.model.BookResponse.Item
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
 
 sealed interface DetailScreenState {
-    data class Success(val books: BookDetail): DetailScreenState
+    data class Success(val books: Item): DetailScreenState
     object Error: DetailScreenState
     object Loading: DetailScreenState
 }

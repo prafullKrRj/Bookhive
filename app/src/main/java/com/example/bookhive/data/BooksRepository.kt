@@ -1,12 +1,12 @@
 package com.example.bookhive.data
 
-import com.example.bookhive.model.BookDetail.BookDetail
 import com.example.bookhive.model.BookResponse.BooksResponse
+import com.example.bookhive.model.BookResponse.Item
 import com.example.bookhive.network.BooksApiService
 
 interface BooksRepository {
     suspend fun searchBooks(query: String, startIndex: Int): BooksResponse
-    suspend fun getBookById(id: String) : BookDetail
+    suspend fun getBookById(id: String) : Item
 }
 class NetworkBooksDetailRepository (
     private val apiService: BooksApiService
@@ -16,5 +16,5 @@ class NetworkBooksDetailRepository (
         query = query,
         startIndex = startIndex
     )
-    override suspend fun getBookById(id: String): BookDetail = apiService.getBookById(id)
+    override suspend fun getBookById(id: String): Item = apiService.getBookById(id)
 }

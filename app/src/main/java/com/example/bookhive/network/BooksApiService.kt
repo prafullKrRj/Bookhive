@@ -1,7 +1,7 @@
 package com.example.bookhive.network
 
-import com.example.bookhive.model.BookDetail.BookDetail
 import com.example.bookhive.model.BookResponse.BooksResponse
+import com.example.bookhive.model.BookResponse.Item
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -18,5 +18,5 @@ interface BooksApiService {
     @GET("volumes/{bookId}")
     suspend fun getBookById(
         @Path("bookId") bookId: String
-    ) : BookDetail
+    ) : Item
 }

@@ -48,7 +48,7 @@ fun BookCard(
             Column(
                 Modifier
                     .fillMaxSize()
-                    .background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black))),
+                    .background(Brush.verticalGradient(listOf(Color.Transparent, Color(0xFF3F4948)))),
                 verticalArrangement = Arrangement.Bottom
             ){
                 BooksDescription(modifier = Modifier.fillMaxSize(), title = title)
