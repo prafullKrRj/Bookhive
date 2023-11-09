@@ -1,4 +1,4 @@
-package com.example.bookhive.model
+package com.example.bookhive.model.BookDetail
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,6 +1,5 @@
 package com.example.bookhive.ui.screens.main
 
-import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,7 +11,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.bookhive.BookApplication
 import com.example.bookhive.data.BooksRepository
-import com.example.bookhive.model.BooksResponse
+import com.example.bookhive.model.BookResponse.BooksResponse
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -61,8 +60,12 @@ class MainScreenViewModel(
                 MainScreenState.Loading
             }
             when (state) {
-                MainScreenState.Error -> TODO()
-                MainScreenState.Loading -> TODO()
+                MainScreenState.Error -> {
+
+                }
+                MainScreenState.Loading -> {
+
+                }
                 is MainScreenState.Success -> {
                     map[query] = (state as MainScreenState.Success).books
                 }

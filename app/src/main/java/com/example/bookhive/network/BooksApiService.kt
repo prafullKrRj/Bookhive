@@ -1,8 +1,9 @@
 package com.example.bookhive.network
 
-import com.example.bookhive.constants.Constant.API_KEY
-import com.example.bookhive.model.BooksResponse
+import com.example.bookhive.model.BookDetail.BookDetail
+import com.example.bookhive.model.BookResponse.BooksResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface BooksApiService {
@@ -13,4 +14,9 @@ interface BooksApiService {
         @Query("startIndex") startIndex: Int
       //  @Query("key") key: String = API_KEY
     ) : BooksResponse
+
+    @GET("volumes/{bookId}")
+    suspend fun getBookById(
+        @Path("bookId") bookId: String
+    ) : BookDetail
 }

@@ -5,14 +5,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.bookhive.BookApplication
 import com.example.bookhive.data.BooksRepository
-import com.example.bookhive.model.BooksResponse
-import com.example.bookhive.ui.screens.main.MainScreenState
+import com.example.bookhive.model.BookResponse.BooksResponse
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException

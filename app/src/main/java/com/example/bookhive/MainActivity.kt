@@ -18,6 +18,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.bookhive.ui.screens.details.DetailScreen
+import com.example.bookhive.ui.screens.details.DetailViewModel
 import com.example.bookhive.ui.screens.main.MainScreen
 import com.example.bookhive.ui.screens.more.MoreScreen
 import com.example.bookhive.ui.screens.more.MoreViewModel
@@ -43,8 +45,21 @@ class MainActivity : ComponentActivity() {
                         composable(route = Screens.SEARCH_SCREEN.name) {
                             
                         }
-                        composable(route = Screens.DETAIL_SCREEN.name) {
-
+                        composable(route = Screens.DETAIL_SCREEN.name + "/{bookName}") {navBackStackEntry ->
+                            navBackStackEntry.arguments?.getString("bookName").let { 
+                                it?.let { it1 ->
+                                    val x = object {
+                                        val Factory: ViewModelProvider.Factory = viewModelFactory {
+                                            initializer {
+                                                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as BookApplication)
+                                                val booksRepository = application.container.bookDetailRepository
+                                                DetailViewModel(booksRepository = booksRepository, bookId = it1)
+                                            }
+                                        }
+                                    }
+                                    DetailScreen(navController = navController, txt = it1, viewModel = viewModel(factory = x.Factory))
+                                }
+                            }
                         }
                         composable(route = Screens.SEE_MORE_SCREEN.name + "/{bookType}") { navBackStackEntry ->
                             navBackStackEntry.arguments?.getString("bookType").let {

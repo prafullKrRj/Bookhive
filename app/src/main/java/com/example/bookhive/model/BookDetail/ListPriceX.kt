@@ -1,11 +1,10 @@
-package com.example.bookhive.model
+package com.example.bookhive.model.BookDetail
 
 import com.google.gson.annotations.SerializedName
 
-data class RetailPrice(
+data class ListPriceX(
     @SerializedName("amountInMicros")
     val amountInMicros: Double,
-
     @SerializedName("currencyCode")
     val currencyCode: String
 )

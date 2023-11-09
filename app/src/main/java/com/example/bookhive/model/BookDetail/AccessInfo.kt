@@ -1,5 +1,7 @@
-package com.example.bookhive.model
+package com.example.bookhive.model.BookDetail
 
+import com.example.bookhive.model.BookResponse.Epub
+import com.example.bookhive.model.BookResponse.Pdf
 import com.google.gson.annotations.SerializedName
 
 data class AccessInfo(

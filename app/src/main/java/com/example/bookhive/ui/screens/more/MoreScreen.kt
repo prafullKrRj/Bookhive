@@ -16,7 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.bookhive.model.BooksResponse
+import com.example.bookhive.Screens
+import com.example.bookhive.model.BookResponse.BooksResponse
 import com.example.bookhive.ui.screens.commons.BookCard
 import com.example.bookhive.ui.screens.commons.Error
 import com.example.bookhive.ui.screens.commons.Loading
@@ -83,7 +84,7 @@ fun MoreScreenUI(
                 if (items != null) {
                     items(items.size) {
                         BookCard(modifier = Modifier.padding(6.dp), item = items[it]) {
-
+                            navController.navigate(Screens.DETAIL_SCREEN.name + "/${items[it].id}")
                         }
                     }
                 }
