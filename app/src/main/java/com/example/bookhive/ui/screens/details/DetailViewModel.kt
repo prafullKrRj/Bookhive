@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bookhive.data.BooksRepository
+import com.example.bookhive.model.BookResponse.BooksResponse
 import com.example.bookhive.model.BookResponse.Item
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -37,5 +38,16 @@ class DetailViewModel(
                 DetailScreenState.Loading
             }
         }
+    }
+    fun getImageList(item: Item): List<String> {
+        val list =  listOf(
+            item.volumeInfo.imageLinks?.large?.replace("http", "https") ?: "",
+            item.volumeInfo.imageLinks?.medium?.replace("http", "https") ?: "",
+            item.volumeInfo.imageLinks?.small?.replace("http", "https") ?: "",
+            item.volumeInfo.imageLinks?.thumbnail?.replace("http", "https") ?: "",
+            item.volumeInfo.imageLinks?.smallThumbnail?.replace("http", "https") ?: ""
+        )
+        list.filter { it != "" }
+        return list
     }
 }

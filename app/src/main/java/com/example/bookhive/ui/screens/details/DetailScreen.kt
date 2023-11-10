@@ -16,8 +16,10 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bookhive.R
+import com.example.bookhive.model.BookResponse.Item
 import com.example.bookhive.ui.screens.commons.Error
 import com.example.bookhive.ui.screens.commons.Loading
+import com.example.bookhive.ui.screens.details.components.BookPhotoGallery
 
 @Composable
 fun DetailScreen(navController: NavController, txt:String, viewModel: DetailViewModel) {
@@ -30,18 +32,22 @@ fun DetailScreen(navController: NavController, txt:String, viewModel: DetailView
             Loading()
         }
         is DetailScreenState.Success -> {
-            val y = state?.books?.volumeInfo?.imageLinks
-            DetailUI(txt = y?.large)
+            DetailUI(
+                item = state.books,
+                navController = navController,
+                images = viewModel.getImageList(state.books)
+            )
         }
     }
 }
 
 @Composable
-fun DetailUI(txt: String?) {
+fun DetailUI(item: Item, navController: NavController, images: List<String>) {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        DetailBookImage(data = "https${txt?.substring(4)}")
+        println(images)
+        BookPhotoGallery(images)
     }
 }
 @Composable
