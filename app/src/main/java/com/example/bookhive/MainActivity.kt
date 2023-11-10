@@ -23,12 +23,19 @@ import com.example.bookhive.ui.screens.details.DetailViewModel
 import com.example.bookhive.ui.screens.main.MainScreen
 import com.example.bookhive.ui.screens.more.MoreScreen
 import com.example.bookhive.ui.screens.more.MoreViewModel
+import com.example.bookhive.ui.screens.search.SearchScreen
+import com.example.bookhive.ui.screens.search.SearchViewModel
 import com.example.bookhive.ui.theme.BookHiveTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+          /*  val preferences = getSharedPreferences("Theme", MODE_PRIVATE)
+            val isDark = preferences.getBoolean("isDark", true)
+            val theme = rememberSaveable {
+                mutableStateOf(preferences.getBoolean("isDark", true))
+            }*/
             BookHiveTheme {
 
                 Surface(
@@ -40,13 +47,24 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(navController = navController, startDestination = startDestination) {
                         composable(route = Screens.MAIN_SCREEN.name) {
-                            MainScreen(navController)
+                            MainScreen(navController) {
+                           //     preferences.edit().putBoolean("isDark", !isDark).apply()
+                            }
                         }
                         composable(route = Screens.SEARCH_SCREEN.name) {
-                            
+                            val x = object {
+                                val Factory: ViewModelProvider.Factory = viewModelFactory {
+                                    initializer {
+                                        val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as BookApplication)
+                                        val booksRepository = application.container.bookDetailRepository
+                                        SearchViewModel(booksRepository = booksRepository)
+                                    }
+                                }
+                            }
+                            SearchScreen(viewModel = viewModel(factory = x.Factory), navController = navController)
                         }
                         composable(route = Screens.DETAIL_SCREEN.name + "/{bookName}") {navBackStackEntry ->
-                            navBackStackEntry.arguments?.getString("bookName").let { 
+                            navBackStackEntry.arguments?.getString("bookName").let {
                                 it?.let { it1 ->
                                     val x = object {
                                         val Factory: ViewModelProvider.Factory = viewModelFactory {
@@ -85,6 +103,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
+
 enum class Screens {
     MAIN_SCREEN, SEARCH_SCREEN, DETAIL_SCREEN, SEE_MORE_SCREEN
 }

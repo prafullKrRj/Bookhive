@@ -35,35 +35,32 @@ fun MoreScreen(title: String, navController: NavController, viewModel: MoreViewM
             Loading()
         }
         is MoreScreenState.Success -> {
-            MoreScreenUI(
+            ItemsUI(
                 modifier = Modifier,
                 title = title,
-                navController = navController,
                 booksResponse = state.books,
-                viewModel = viewModel,
+                navController = navController,
                 onNext = {
                     viewModel.idx += 10
                     state.idx = viewModel.idx
                     viewModel.resetBooks(viewModel.idx)
-                },
-                onPrev = {
-                    viewModel.idx -= 10
-                    state.idx = viewModel.idx
-                    viewModel.resetBooks(viewModel.idx)
                 }
-            )
+            ) {
+                viewModel.idx -= 10
+                state.idx = viewModel.idx
+                viewModel.resetBooks(viewModel.idx)
+            }
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MoreScreenUI(
+fun ItemsUI(
     modifier: Modifier,
     title: String,
     booksResponse: BooksResponse,
     navController: NavController,
-    viewModel: MoreViewModel,
     onNext: () -> Unit,
     onPrev: () -> Unit
 ) {
@@ -92,7 +89,6 @@ fun MoreScreenUI(
                     item {
                         NavigationButton(text = "Previous") {
                             counter--
-
                             onPrev()
                         }
                     }

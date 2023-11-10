@@ -1,10 +1,15 @@
 package com.example.bookhive.ui.screens.details
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
@@ -33,18 +38,34 @@ fun DetailScreen(navController: NavController, txt:String, viewModel: DetailView
 
 @Composable
 fun DetailUI(txt: String?) {
-    Box(
+    Column(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
     ) {
-        val data = "https" + txt?.substring(4)
+        DetailBookImage(data = "https${txt?.substring(4)}")
+    }
+}
+@Composable
+fun DetailBookImage(modifier: Modifier = Modifier, data: String) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.TopCenter
+    ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current).data(data)
-                .crossfade(true).build(),
+            model = ImageRequest.Builder(LocalContext.current).data(data).crossfade(true).build(),
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
+            placeholder = painterResource(id = R.drawable.loading_img),
             error = painterResource(id = R.drawable.ic_broken_image),
-            placeholder = painterResource(id = R.drawable.loading_img)
+            modifier = Modifier.fillMaxWidth()
         )
+        Box(modifier = Modifier
+            .background(
+                Brush.verticalGradient(
+                    listOf(
+                        Color.Transparent,
+                        Color.Black
+                    )
+                )
+            )
+            .fillMaxSize())
     }
 }

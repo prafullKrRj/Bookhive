@@ -6,7 +6,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.bookhive.ui.screens.more.MoreScreenState
 
 @Composable
 fun Loading() {
@@ -15,5 +14,6 @@ fun Loading() {
         contentAlignment = Alignment.Center
     ) {
         LinearProgressIndicator()
+
     }
 }
