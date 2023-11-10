@@ -61,15 +61,8 @@ fun BookPhotoGallery (list: List<String>) {
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    repeat(5) {
-                        Box(
-                            modifier = Modifier
-                                .padding(3.dp)
-                                .clip(CircleShape)
-                                .size(10.dp)
-                                .border(2.dp, colorScheme.inversePrimary, CircleShape)
-                                .background(color = if (it == state.currentPage) colorScheme.inversePrimary else Transparent),
-                        )
+                    repeat(list.size) {
+                        PageIndicator(idx = it, currentPage = state.currentPage)
                     }
                 }
               /*  Box(
@@ -99,6 +92,17 @@ fun BookPhotoGallery (list: List<String>) {
 }
 
 @Composable
+fun PageIndicator(idx: Int, currentPage: Int) { 
+    Box(
+        modifier = Modifier
+            .padding(3.dp)
+            .clip(CircleShape)
+            .size(10.dp)
+            .border(2.dp, colorScheme.inversePrimary, CircleShape)
+            .background(color = if (idx == currentPage) colorScheme.inversePrimary else Transparent),
+    )
+}
+@Composable
 fun BookImages(link: String) {
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current).data(link).crossfade(true).build(),
@@ -113,13 +117,13 @@ fun BookImages(link: String) {
 @Composable
 fun BookPhotoGalleryPreview() {
     BookPhotoGallery(listOf(
-    /*    "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",
+       "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",
         "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",
         "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",
         "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",
         "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",
         "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",
         "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",
-        "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",*/
+        "https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._AC_SY400_.jpg",
     ))
 }

@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bookhive.data.BooksRepository
 import com.example.bookhive.model.BookResponse.BooksResponse
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -35,6 +37,7 @@ class SearchViewModel(
             } catch (e: IOException) {
                 SearchState.Loading
             }
+            delay(150L)
         }
     }
     fun resetBooks(query: String, idx: Int) {

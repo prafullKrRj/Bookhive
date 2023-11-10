@@ -50,7 +50,7 @@ fun BooksRow(
                         modifier = Modifier.padding(start = if (it == 0) 0.dp else 6.dp),
                         item = items[it]
                     ) {
-                        toDetailScreen(items[it].selfLink)
+                        toDetailScreen(items[it].id)
                     }
                 }
             }

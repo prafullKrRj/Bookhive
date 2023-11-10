@@ -33,6 +33,7 @@ import com.example.bookhive.ui.screens.commons.Loading
 import com.example.bookhive.ui.screens.main.components.AppBar
 import com.example.bookhive.ui.screens.main.components.BookType
 import com.example.bookhive.ui.screens.main.components.BooksRow
+import com.example.bookhive.ui.screens.main.components.ToSearchRow
 
 @Composable
 fun MainScreen(navController: NavHostController, changeTheme: () -> Unit) {
@@ -81,27 +82,8 @@ fun MUI(
                 .padding(innerPadding)
         ) {
             item {
-                Row(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth()
-                        .clip(
-                            RoundedCornerShape(10.dp),
-                        )
-                        .background(MaterialTheme.colorScheme.secondaryContainer)
-
-                        .height(35.dp)
-                        .clickable {
-                            navController.navigate(route = Screens.SEARCH_SCREEN.name)
-                        }.padding(horizontal = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = null,
-                        Modifier.size(20.dp)
-                    )
+                ToSearchRow {
+                    navController.navigate(route = Screens.SEARCH_SCREEN.name)
                 }
             }
             item { 

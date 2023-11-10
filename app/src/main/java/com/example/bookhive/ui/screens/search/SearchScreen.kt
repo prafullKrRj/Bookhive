@@ -1,36 +1,49 @@
 package com.example.bookhive.ui.screens.search
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.navigation.NavController
-import com.example.bookhive.model.BookResponse.Item
 import com.example.bookhive.ui.screens.commons.Error
 import com.example.bookhive.ui.screens.commons.Loading
+import com.example.bookhive.ui.screens.main.components.SearchResults
+import com.example.bookhive.ui.screens.search.components.SearchField
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SearchScreen(viewModel: SearchViewModel, navController: NavController) {
     var text by rememberSaveable { mutableStateOf("") }
     val state = viewModel.state
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+
     Scaffold(
         topBar = {
-            SearchBar {
-                text = it
-                viewModel.getBooks(text)
-            }
+            SearchField(
+                modifier = Modifier.fillMaxWidth(),
+                onSearched = {
+                             viewModel.getBooks(it)
+                    keyboardController?.hide()
+                    text = it
+                    focusRequester.freeFocus()
+
+                },
+                keyboardController = keyboardController,
+                focusRequester = focusRequester,
+                onValueChange = {
+                    text = it
+                    viewModel.getBooks(it)
+                })
         }
     ) { paddingValues ->
         if (text.isNotEmpty()) {
@@ -44,7 +57,11 @@ fun SearchScreen(viewModel: SearchViewModel, navController: NavController) {
                 }
 
                 is SearchState.Success -> {
-                    SearchResults(paddingValues = paddingValues, items = state.books.items)
+                    SearchResults(
+                        paddingValues = paddingValues,
+                        items = state.books.items,
+                        navController
+                    )
                     println(state.books.items)
                 }
             }
@@ -52,32 +69,3 @@ fun SearchScreen(viewModel: SearchViewModel, navController: NavController) {
     }
 }
 
-@Composable
-fun SearchResults(paddingValues: PaddingValues, items: List<Item>?) {
-    LazyColumn(contentPadding = paddingValues) {
-        items?.forEach {
-            item {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    if (it?.volumeInfo?.title != null) {
-                        Text(text = it.volumeInfo.title)
-                    }
-                }
-            }
-        }
-    }
-}
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SearchBar(onValueChange: (String) -> Unit){
-    var text by rememberSaveable { mutableStateOf("") }
-
-    OutlinedTextField(
-        value = text,
-        onValueChange = {
-            text = it
-            onValueChange(it)
-                        },
-        label = { Text("Label") },
-        singleLine = true
-    )
-}
