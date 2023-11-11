@@ -43,17 +43,17 @@ class MainScreenViewModel(
         "Business & Economics",
         "History",
     )
-
+    val numbers = listOf(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
     var map: MutableMap<String, BooksResponse> = mutableMapOf()
     init {
         for (i in categories) {
-            getBooks(i, 10*(0..5).random())
+            getBooks(i, numbers.random())
         }
     }
     private fun getBooks(query: String, idx: Int){
         viewModelScope.launch {
             state = try {
-                MainScreenState.Success(booksRepository.searchBooks("subject:$query", idx))
+                MainScreenState.Success(booksRepository.searchBooks("category:$query", idx))
             } catch (e: HttpException) {
                 MainScreenState.Error
             } catch (e: IOException) {

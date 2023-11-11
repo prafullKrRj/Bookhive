@@ -30,7 +30,7 @@ class MoreViewModel(
     private fun getBooks(query: String, idx: Int) {
         viewModelScope.launch {
             state = try {
-                MoreScreenState.Success(booksRepository.searchBooks("subject:$query", idx), idx = idx)
+                MoreScreenState.Success(booksRepository.searchBooks("category:$query", idx), idx = idx)
             } catch (e: HttpException) {
                 MoreScreenState.Error
             } catch (e: IOException) {

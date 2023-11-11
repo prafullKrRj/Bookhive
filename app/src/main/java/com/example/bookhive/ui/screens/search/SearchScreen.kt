@@ -12,12 +12,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.navigation.NavController
+import com.example.bookhive.Screens
 import com.example.bookhive.ui.screens.commons.Error
 import com.example.bookhive.ui.screens.commons.Loading
-import com.example.bookhive.ui.screens.main.components.SearchResults
 import com.example.bookhive.ui.screens.search.components.SearchField
+import com.example.bookhive.ui.screens.search.components.SearchResults
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -26,17 +28,15 @@ fun SearchScreen(viewModel: SearchViewModel, navController: NavController) {
     val state = viewModel.state
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
-
     Scaffold(
         topBar = {
             SearchField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
                 onSearched = {
                              viewModel.getBooks(it)
                     keyboardController?.hide()
                     text = it
-                    focusRequester.freeFocus()
-
+                    navController.navigate(route = Screens.SEARCH_RESULTS_SCREEN.name)
                 },
                 keyboardController = keyboardController,
                 focusRequester = focusRequester,

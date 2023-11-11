@@ -22,6 +22,7 @@ import com.example.bookhive.ui.screens.more.MoreScreen
 import com.example.bookhive.ui.screens.more.MoreViewModel
 import com.example.bookhive.ui.screens.search.SearchScreen
 import com.example.bookhive.ui.screens.search.SearchViewModel
+import com.example.bookhive.ui.screens.search.components.SearchResultsScreen
 import com.example.bookhive.ui.theme.BookHiveTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,7 +41,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController: NavHostController = rememberNavController()
-                    val startDestination = Screens.SEARCH_SCREEN.name
+                    val startDestination = Screens.MAIN_SCREEN.name
 
                     NavHost(navController = navController, startDestination = startDestination) {
                         composable(route = Screens.MAIN_SCREEN.name) {
@@ -92,7 +93,9 @@ class MainActivity : ComponentActivity() {
                                     MoreScreen(it1, navController, viewModel = viewModel(factory = x.Factory))
                                 }
                             }
-
+                        }
+                        composable(route = Screens.SEARCH_RESULTS_SCREEN.name) {
+                            SearchResultsScreen()
                         }
                     }
                 }
@@ -104,5 +107,5 @@ class MainActivity : ComponentActivity() {
 
 
 enum class Screens {
-    MAIN_SCREEN, SEARCH_SCREEN, DETAIL_SCREEN, SEE_MORE_SCREEN
+    MAIN_SCREEN, SEARCH_SCREEN, DETAIL_SCREEN, SEE_MORE_SCREEN, SEARCH_RESULTS_SCREEN
 }

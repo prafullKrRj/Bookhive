@@ -40,6 +40,7 @@ fun SearchField(
         mutableStateOf("")
     }
     val color = MaterialTheme.colorScheme.secondaryContainer
+
     OutlinedTextField(
         modifier = modifier
             .padding(16.dp)
@@ -64,7 +65,6 @@ fun SearchField(
         trailingIcon = {
             IconButton(onClick = {
                 if (userSearch.isNotEmpty()) {
-                    focusRequester.freeFocus()
                     onSearched(userSearch)
                 }
             }) {
@@ -74,7 +74,6 @@ fun SearchField(
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = {
             keyboardController?.hide()
-            focusRequester.freeFocus()
             if (userSearch.isNotEmpty()) {
                 onSearched(userSearch)
             }

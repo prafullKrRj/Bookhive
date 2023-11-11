@@ -1,4 +1,4 @@
-package com.example.bookhive.ui.screens.main.components
+package com.example.bookhive.ui.screens.search.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
