@@ -35,8 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Pagination(size: Int, onButtonClick: (Int) -> Unit) {
-    val count = size/10
+fun Pagination(size: Long, onButtonClick: (Int) -> Unit) {
     var selected by rememberSaveable {
         mutableIntStateOf(1)
     }
@@ -82,6 +81,7 @@ fun Pagination(size: Int, onButtonClick: (Int) -> Unit) {
                     TextButton(
                         {
                             selected = it
+                            onButtonClick(selected)
                         },
                         Modifier
                             .padding(end = 4.dp)
@@ -110,7 +110,7 @@ fun Pagination(size: Int, onButtonClick: (Int) -> Unit) {
                     }
                 }
             }
-            if (selected != array[array.size-1] || array[array.size-1] < count) {
+            if (selected != array[array.size-1] || array[array.size-1] < size) {
                 OutlinedButton(
                     onClick = {
                         if (selected == array[array.size-1]) {

@@ -9,10 +9,6 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -21,7 +17,7 @@ import com.example.bookhive.model.BookResponse.BooksResponse
 import com.example.bookhive.ui.screens.commons.BookCard
 import com.example.bookhive.ui.screens.commons.Error
 import com.example.bookhive.ui.screens.commons.Loading
-import com.example.bookhive.ui.screens.more.components.NavigationButton
+import com.example.bookhive.ui.screens.commons.Pagination
 import com.example.bookhive.ui.screens.more.components.Title
 
 @Composable
@@ -39,14 +35,9 @@ fun MoreScreen(title: String, navController: NavController, viewModel: MoreViewM
                 modifier = Modifier,
                 title = title,
                 booksResponse = state.books,
-                navController = navController,
-                onNext = {
-                    viewModel.idx += 10
-                    state.idx = viewModel.idx
-                    viewModel.resetBooks(viewModel.idx)
-                }
+                navController = navController
             ) {
-                viewModel.idx -= 10
+                viewModel.idx =  (it-1)*10
                 state.idx = viewModel.idx
                 viewModel.resetBooks(viewModel.idx)
             }
@@ -61,43 +52,29 @@ fun ItemsUI(
     title: String,
     booksResponse: BooksResponse,
     navController: NavController,
-    onNext: () -> Unit,
-    onPrev: () -> Unit
+    onNavigate: (Int) -> Unit
 ) {
     val items = booksResponse.items
-    var counter by rememberSaveable {
-        mutableIntStateOf(1)
-    }
     val lazyGridState = rememberLazyGridState()
 
     Scaffold(
         topBar = { Title(title = title, modifier = Modifier.padding(start = 12.dp)) {
             navController.popBackStack()
-        } }
+        } },
+        bottomBar = {
+            Pagination(size = booksResponse.totalItems/10) {
+                onNavigate(it)
+            }
+        }
     ) { padding ->
-        println(booksResponse.totalItems)
+        println()
         Column(modifier = modifier.padding(padding)){
             LazyVerticalGrid(state = lazyGridState, modifier = Modifier, columns = GridCells.Adaptive(180.dp), contentPadding = PaddingValues(16.dp)) {
+                println(items)
                 if (items != null) {
                     items(items.size) {
                         BookCard(modifier = Modifier.padding(6.dp), item = items[it]) {
                             navController.navigate(Screens.DETAIL_SCREEN.name + "/${items[it].id}")
-                        }
-                    }
-                }
-                if (counter > 1) {
-                    item {
-                        NavigationButton(text = "Previous") {
-                            counter--
-                            onPrev()
-                        }
-                    }
-                }
-                if (counter < booksResponse.totalItems/10) {
-                    item {
-                        NavigationButton(text = "Next") {
-                            counter++
-                            onNext()
                         }
                     }
                 }
