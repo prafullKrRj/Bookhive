@@ -8,8 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bookhive.data.BooksRepository
 import com.example.bookhive.model.BookResponse.BooksResponse
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -28,8 +26,11 @@ class SearchViewModel(
         private set
 
     var idx by mutableIntStateOf(0)
-    fun getBooks(query: String) {
+
+    var lastQuery by mutableStateOf("")
+    fun getBooks(query: String, idx: Int) {
         viewModelScope.launch {
+            lastQuery = query
             state = try {
                 SearchState.Success(booksRepository.searchBooks(query, idx))
             } catch (e: HttpException) {
@@ -37,10 +38,9 @@ class SearchViewModel(
             } catch (e: IOException) {
                 SearchState.Loading
             }
-            delay(150L)
         }
     }
     fun resetBooks(query: String, idx: Int) {
-        getBooks(query = query)
+        getBooks(query = query, idx)
     }
 }

@@ -15,8 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.bookhive.R
 import com.example.bookhive.Screens
 import com.example.bookhive.model.BookResponse.Item
 
@@ -32,7 +34,7 @@ fun SearchResults(paddingValues: PaddingValues, items: List<Item>?, navControlle
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(4.dp))
                         .clickable {
-                            navController.navigate(Screens.DETAIL_SCREEN.name+"/${it.id}")
+                            navController.navigate(Screens.DETAIL_SCREEN.name + "/${it.id}")
                         }
                         .padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween
                     ) {
@@ -41,8 +43,8 @@ fun SearchResults(paddingValues: PaddingValues, items: List<Item>?, navControlle
                         }
                         Text(text = text)
                         Icon(
-                            imageVector = Icons.Default.ArrowForward,
-                            contentDescription = null,
+                            painter = painterResource(id = R.drawable.baseline_north_east_24),
+                            contentDescription = null
                         )
                     }
                 }

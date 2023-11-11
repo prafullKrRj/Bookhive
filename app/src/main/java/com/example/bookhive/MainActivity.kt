@@ -22,7 +22,7 @@ import com.example.bookhive.ui.screens.more.MoreScreen
 import com.example.bookhive.ui.screens.more.MoreViewModel
 import com.example.bookhive.ui.screens.search.SearchScreen
 import com.example.bookhive.ui.screens.search.SearchViewModel
-import com.example.bookhive.ui.screens.search.components.SearchResultsScreen
+import com.example.bookhive.ui.screens.search.SearchResultsScreen
 import com.example.bookhive.ui.theme.BookHiveTheme
 
 class MainActivity : ComponentActivity() {
@@ -94,8 +94,26 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
-                        composable(route = Screens.SEARCH_RESULTS_SCREEN.name) {
-                            SearchResultsScreen()
+                        composable(route = Screens.SEARCH_RESULTS_SCREEN.name + "/{query}") {navBackStackEntry->
+
+
+                         navBackStackEntry.arguments?.getString("query").let {
+
+                                it?.let { it1 ->
+                                    val x = object {
+                                        val Factory: ViewModelProvider.Factory = viewModelFactory {
+                                            initializer {
+                                                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as BookApplication)
+                                                val booksRepository = application.container.bookDetailRepository
+                                                SearchViewModel(booksRepository = booksRepository)
+                                            }
+                                        }
+                                    }
+                                    val viewModel: SearchViewModel = viewModel(factory = x.Factory)
+                                    viewModel.getBooks(it1, viewModel.idx)
+                                    SearchResultsScreen(viewModel = viewModel, navController = navController)
+                                }
+                            }
                         }
                     }
                 }

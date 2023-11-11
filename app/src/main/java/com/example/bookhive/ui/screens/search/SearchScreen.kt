@@ -33,16 +33,16 @@ fun SearchScreen(viewModel: SearchViewModel, navController: NavController) {
             SearchField(
                 modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
                 onSearched = {
-                             viewModel.getBooks(it)
+                             viewModel.getBooks(it, 0)
                     keyboardController?.hide()
                     text = it
-                    navController.navigate(route = Screens.SEARCH_RESULTS_SCREEN.name)
+                    navController.navigate(route = Screens.SEARCH_RESULTS_SCREEN.name + "/$it")
                 },
                 keyboardController = keyboardController,
                 focusRequester = focusRequester,
                 onValueChange = {
                     text = it
-                    viewModel.getBooks(it)
+                    viewModel.getBooks(it, 0)
                 })
         }
     ) { paddingValues ->
