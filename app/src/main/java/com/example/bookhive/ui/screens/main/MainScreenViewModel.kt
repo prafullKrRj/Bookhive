@@ -50,14 +50,14 @@ class MainScreenViewModel(
             getBooks(i, numbers.random())
         }
     }
-    private fun getBooks(query: String, idx: Int){
+    fun getBooks(query: String, idx: Int){
         viewModelScope.launch {
             state = try {
                 MainScreenState.Success(booksRepository.searchBooks("category:$query", idx))
             } catch (e: HttpException) {
                 MainScreenState.Error
             } catch (e: IOException) {
-                MainScreenState.Loading
+                MainScreenState.Error
             }
             when (state) {
                 MainScreenState.Error -> {
@@ -70,6 +70,11 @@ class MainScreenViewModel(
                     map[query] = (state as MainScreenState.Success).books
                 }
             }
+        }
+    }
+    fun retryStart() {
+        for (i in categories) {
+            getBooks(i, numbers.random())
         }
     }
     companion object {

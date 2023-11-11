@@ -34,12 +34,15 @@ import com.example.bookhive.ui.screens.search.components.SearchField
 @Composable
 fun SearchResultsScreen(
     viewModel: SearchViewModel,
-    navController: NavController
+    navController: NavController,
+    onRetry: () -> Unit
 ){
 
     when (val state = viewModel.state) {
         SearchState.Error -> {
-            Error()
+            Error {
+                onRetry()
+            }
         }
         SearchState.Loading -> {
             Loading()

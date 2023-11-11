@@ -21,11 +21,13 @@ import com.example.bookhive.ui.screens.commons.Pagination
 import com.example.bookhive.ui.screens.more.components.Title
 
 @Composable
-fun MoreScreen(title: String, navController: NavController, viewModel: MoreViewModel) {
+fun MoreScreen(title: String, navController: NavController, viewModel: MoreViewModel, onRetry: () -> Unit) {
     val state = viewModel.state
     when (state) {
         MoreScreenState.Error -> {
-            Error()
+            Error {
+                onRetry()
+            }
         }
         MoreScreenState.Loading -> {
             Loading()

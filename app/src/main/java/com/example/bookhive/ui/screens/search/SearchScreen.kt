@@ -23,7 +23,10 @@ import com.example.bookhive.ui.screens.search.components.SearchResults
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun SearchScreen(viewModel: SearchViewModel, navController: NavController) {
+fun SearchScreen(
+    viewModel: SearchViewModel,
+    navController: NavController
+) {
     var text by rememberSaveable { mutableStateOf("") }
     val state = viewModel.state
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -49,7 +52,9 @@ fun SearchScreen(viewModel: SearchViewModel, navController: NavController) {
         if (text.isNotEmpty()) {
             when (state) {
                 SearchState.Error -> {
-                    Error()
+                    Error {
+                        viewModel.getBooks(text, 0)
+                    }
                 }
 
                 SearchState.Loading -> {

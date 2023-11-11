@@ -35,9 +35,12 @@ class DetailViewModel(
             } catch (e: HttpException) {
                 DetailScreenState.Error
             } catch (e: IOException) {
-                DetailScreenState.Loading
+                DetailScreenState.Error
             }
         }
+    }
+    fun retryStart() {
+        getBookById(bookId)
     }
     fun getImageList(item: Item): List<String> {
         val list =  listOf(

@@ -36,10 +36,11 @@ class SearchViewModel(
             } catch (e: HttpException) {
                 SearchState.Error
             } catch (e: IOException) {
-                SearchState.Loading
+                SearchState.Error
             }
         }
     }
+
     fun resetBooks(query: String, idx: Int) {
         getBooks(query = query, idx)
     }

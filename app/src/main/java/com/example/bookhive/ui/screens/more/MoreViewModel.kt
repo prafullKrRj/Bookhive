@@ -34,9 +34,12 @@ class MoreViewModel(
             } catch (e: HttpException) {
                 MoreScreenState.Error
             } catch (e: IOException) {
-                MoreScreenState.Loading
+                MoreScreenState.Error
             }
         }
+    }
+    fun retry() {
+        getBooks(query, idx)
     }
     fun resetBooks(idx: Int) {
         getBooks(query = query, idx)

@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.bookhive.ui.screens.details.DetailScreen
 import com.example.bookhive.ui.screens.details.DetailViewModel
 import com.example.bookhive.ui.screens.main.MainScreen
+import com.example.bookhive.ui.screens.main.MainScreenViewModel
 import com.example.bookhive.ui.screens.more.MoreScreen
 import com.example.bookhive.ui.screens.more.MoreViewModel
 import com.example.bookhive.ui.screens.search.SearchScreen
@@ -45,9 +46,12 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(navController = navController, startDestination = startDestination) {
                         composable(route = Screens.MAIN_SCREEN.name) {
-                            MainScreen(navController) {
-                           //     preferences.edit().putBoolean("isDark", !isDark).apply()
-                            }
+                            val viewModel: MainScreenViewModel = viewModel(factory = MainScreenViewModel.Factory)
+                            MainScreen(viewModel = viewModel, navController = navController, changeTheme = {
+
+                            }, onRetry = {
+                                viewModel.retryStart()
+                            })
                         }
                         composable(route = Screens.SEARCH_SCREEN.name) {
                             val x = object {
@@ -59,7 +63,8 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
-                            SearchScreen(viewModel = viewModel(factory = x.Factory), navController = navController)
+                            val viewModel: SearchViewModel = viewModel(factory = x.Factory)
+                            SearchScreen(viewModel = viewModel, navController = navController)
                         }
                         composable(route = Screens.DETAIL_SCREEN.name + "/{bookName}") {navBackStackEntry ->
                             navBackStackEntry.arguments?.getString("bookName").let {
@@ -73,7 +78,10 @@ class MainActivity : ComponentActivity() {
                                             }
                                         }
                                     }
-                                    DetailScreen(navController = navController, txt = it1, viewModel = viewModel(factory = x.Factory))
+                                    val viewModel: DetailViewModel = viewModel(factory = x.Factory)
+                                    DetailScreen(navController = navController, txt = it1, viewModel = viewModel, onRetry = {
+                                        viewModel.retryStart()
+                                    })
                                 }
                             }
                         }
@@ -90,7 +98,10 @@ class MainActivity : ComponentActivity() {
                                             }
                                         }
                                     }
-                                    MoreScreen(it1, navController, viewModel = viewModel(factory = x.Factory))
+                                    val viewModel: MoreViewModel = viewModel(factory = x.Factory)
+                                    MoreScreen(it1, navController, viewModel = viewModel, onRetry = {
+                                        viewModel.retry()
+                                    })
                                 }
                             }
                         }
@@ -111,7 +122,9 @@ class MainActivity : ComponentActivity() {
                                     }
                                     val viewModel: SearchViewModel = viewModel(factory = x.Factory)
                                     viewModel.getBooks(it1, viewModel.idx)
-                                    SearchResultsScreen(viewModel = viewModel, navController = navController)
+                                    SearchResultsScreen(viewModel = viewModel, navController = navController, onRetry = {
+                                        viewModel.getBooks(it1, viewModel.idx)
+                                    })
                                 }
                             }
                         }
