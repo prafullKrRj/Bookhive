@@ -39,9 +39,16 @@ fun Pagination(size: Long, onButtonClick: (Int) -> Unit) {
     var selected by rememberSaveable {
         mutableIntStateOf(1)
     }
+    if (size == 0L) {
+        return
+    }
     var array: IntArray by rememberSaveable {
         mutableStateOf(intArrayOf(1, 2, 3, 4, 5))
     }
+    if (size < 5) {
+        array = IntArray(size.toInt()) { it + 1 }
+    }
+
     Row(
         modifier = Modifier.fillMaxWidth().padding(6.dp),
         verticalAlignment = Alignment.CenterVertically,

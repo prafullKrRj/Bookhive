@@ -38,7 +38,8 @@ fun NameAndImageRow(item: Item) {
             modifier = Modifier
                 .weight(.5f)
                 .width(180.dp)
-                .height(280.dp),
+                .height(280.dp)
+                .padding(8.dp),
             item = item
         )
     }
@@ -52,22 +53,42 @@ private fun BasicDetails(modifier: Modifier = Modifier, item: Item) {
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             if (item?.volumeInfo?.title != null) {
-                Text(text = "Title", fontSize = 24.sp, fontWeight = FontWeight.Medium)
-                Text(text = item.volumeInfo.title, fontSize = 18.sp, fontWeight = FontWeight.Light, fontFamily = FontFamily.SansSerif)
-                Divider(Modifier.padding(end = 8.dp).padding(vertical = 8.dp).height(1.dp))
+                SmallBlockUI(type = "Title", value = item.volumeInfo.title)
             }
             Spacer(modifier = Modifier.height(6.dp))
             if (item?.volumeInfo?.authors != null) {
-                Text(text = "Author", fontSize = 24.sp, fontWeight = FontWeight.Medium)
-                Text(text = item.volumeInfo.authors[0], fontSize = 18.sp, fontWeight = FontWeight.Light, fontFamily = FontFamily.SansSerif)
-                Divider(Modifier.padding(end = 8.dp).padding(vertical = 8.dp).height(1.dp))
+                SmallBlockUI(type = "Author", value = item.volumeInfo.authors[0])
             }
             if (item?.volumeInfo?.language != null) {
-                Text(text = "Language", fontSize = 24.sp, fontWeight = FontWeight.Medium)
-                Text(text = item.volumeInfo.language, fontSize = 18.sp, fontWeight = FontWeight.Light, fontFamily = FontFamily.SansSerif)
+                SmallBlockUI(type = "Language", value = item.volumeInfo.language)
+
+            }
+            if (item?.volumeInfo?.publisher != null) {
+                SmallBlockUI(type = "Publisher", value = item.volumeInfo.publisher)
+
             }
         }
     }
+}
+
+@Composable
+fun SmallBlockUI(type: String, value: String) {
+    Text(text = type, fontSize = 22.sp, fontWeight = FontWeight.Medium)
+    Text(
+        text = value,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = FontFamily.SansSerif
+    )
+    BasicDetailsDivider()
+}
+@Composable
+private fun BasicDetailsDivider() {
+    Divider(
+        Modifier
+            .padding(end = 8.dp)
+            .padding(vertical = 8.dp)
+            .height(1.dp))
 }
 @Composable
 private fun ImageBox(modifier: Modifier, item: Item) {
