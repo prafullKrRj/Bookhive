@@ -37,8 +37,7 @@ fun SearchResultsScreen(
     navController: NavController
 ){
 
-    val state = viewModel.state
-    when (state) {
+    when (val state = viewModel.state) {
         SearchState.Error -> {
             Error()
         }
@@ -49,7 +48,7 @@ fun SearchResultsScreen(
             var text by rememberSaveable { mutableStateOf("") }
             val keyboardController = LocalSoftwareKeyboardController.current
             val focusRequester = remember { FocusRequester() }
-            val gridState = rememberLazyGridState()
+
             val response: BooksResponse = state.books
             val items: List<Item> = response.items
             Scaffold(
@@ -80,18 +79,24 @@ fun SearchResultsScreen(
                 Column(
                     modifier = Modifier.padding(paddingValues),
                 ) {
-                    LazyVerticalGrid(state = gridState,
-                        modifier = Modifier,
-                        columns = GridCells.Adaptive(180.dp),
-                    ) {
-                        if (items != null) {
-                            items(items.size) {
-                                BookCard(modifier = Modifier.padding(6.dp), item = items[it]) {
-                                    navController.navigate(Screens.DETAIL_SCREEN.name + "/${items[it].id}")
-                                }
-                            }
-                        }
-                    }
+                    ResultItems(navController = navController, items = items)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ResultItems(navController: NavController, items: List<Item>) {
+    val gridState = rememberLazyGridState()
+    LazyVerticalGrid(state = gridState,
+        modifier = Modifier,
+        columns = GridCells.Adaptive(180.dp),
+    ) {
+        if (items != null) {
+            items(items.size) {
+                BookCard(modifier = Modifier.padding(6.dp), item = items[it]) {
+                    navController.navigate(Screens.DETAIL_SCREEN.name + "/${items[it].id}")
                 }
             }
         }
