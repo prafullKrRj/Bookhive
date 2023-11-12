@@ -30,12 +30,14 @@ class MainScreenViewModel(
         private set
 
     val categories = arrayOf(
+        "Comics",
+        "Art",
+        "Children",
         "Religion",
+        "Cooking",
         "Fiction",
         "Mystery",
         "Science Fiction",
-        "Fantasy",
-        "Romance",
         "Thriller",
         "Historical Fiction",
         "Biography",
@@ -43,14 +45,14 @@ class MainScreenViewModel(
         "Business & Economics",
         "History",
     )
-    val numbers = listOf(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
+    private val numbers = listOf(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
     var map: MutableMap<String, BooksResponse> = mutableMapOf()
     init {
         for (i in categories) {
             getBooks(i, numbers.random())
         }
     }
-    fun getBooks(query: String, idx: Int){
+    private fun getBooks(query: String, idx: Int){
         viewModelScope.launch {
             state = try {
                 MainScreenState.Success(booksRepository.searchBooks("category:$query", idx))
