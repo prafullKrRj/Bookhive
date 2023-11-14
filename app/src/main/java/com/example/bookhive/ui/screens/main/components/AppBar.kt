@@ -42,7 +42,7 @@ import com.example.bookhive.R
 
 
 @Composable
-fun AppBar(changeTheme: () -> Unit) {
+fun AppBar() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,14 +59,12 @@ fun AppBar(changeTheme: () -> Unit) {
             Spacer(modifier = Modifier.width(6.dp))
             AppName()
         }
-        MainScreenMenu(modifier = Modifier) {
-            changeTheme()
-        }
+      //  MainScreenMenu(modifier = Modifier)
     }
 }
 
 @Composable
-fun MainScreenMenu(modifier: Modifier, changeTheme: () -> Unit) {
+fun MainScreenMenu(modifier: Modifier) {
     var expanded by remember { mutableStateOf(false) }
     var openDialog by remember { mutableStateOf(false) }
     Box(modifier = modifier) {
@@ -105,11 +103,6 @@ fun MainScreenMenu(modifier: Modifier, changeTheme: () -> Unit) {
     if (openDialog) {
         ThemeSelectorDialog(onClick = {
             openDialog = false
-            when (it) {
-                0 -> changeTheme()
-                1 -> changeTheme()
-                2 -> changeTheme()
-            }
         }) {
             openDialog = false
         }

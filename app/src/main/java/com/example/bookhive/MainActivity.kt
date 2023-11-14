@@ -30,12 +30,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-          /*  val preferences = getSharedPreferences("Theme", MODE_PRIVATE)
-            val isDark = preferences.getBoolean("isDark", true)
-            val theme = rememberSaveable {
-                mutableStateOf(preferences.getBoolean("isDark", true))
-            }*/
-            BookHiveTheme {
+
+            BookHiveTheme () {
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -47,11 +43,9 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = startDestination) {
                         composable(route = Screens.MAIN_SCREEN.name) {
                             val viewModel: MainScreenViewModel = viewModel(factory = MainScreenViewModel.Factory)
-                            MainScreen(viewModel = viewModel, navController = navController, changeTheme = {
-
-                            }, onRetry = {
+                            MainScreen(viewModel = viewModel, navController = navController) {
                                 viewModel.retryStart()
-                            })
+                            }
                         }
                         composable(route = Screens.SEARCH_SCREEN.name) {
                             val x = object {

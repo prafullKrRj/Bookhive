@@ -10,7 +10,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.bookhive.Screens
 import com.example.bookhive.model.BookResponse.BooksResponse
@@ -26,7 +25,6 @@ import com.example.bookhive.ui.screens.main.components.ToSearchRow
 fun MainScreen(
     viewModel: MainScreenViewModel,
     navController: NavHostController,
-    changeTheme: () -> Unit,
     onRetry: () -> Unit
 ) {
     val state = viewModel.state
@@ -47,9 +45,7 @@ fun MainScreen(
                 navController = navController,
                 map = map,
                 categories = categories
-            ) {
-                changeTheme()
-            }
+            )
         }
     }
 }
@@ -59,14 +55,11 @@ fun MainScreen(
 fun MUI(
     navController: NavHostController,
     map: MutableMap<String, BooksResponse>,
-    categories: Array<String>,
-    changeTheme: () -> Unit
+    categories: Array<String>
 ) {
     Scaffold(
         topBar = {
-            AppBar {
-                changeTheme()
-            }
+            AppBar()
         }
     ) { innerPadding ->
         LazyColumn(
