@@ -42,6 +42,6 @@ Here're some of the project's best features:
 
 Technologies used in the project:
 
-*   Google Books API: The app uses the Google Books API to fetch book data. Ensure that your API key is properly configured in the project.
+*   Google Books API: The app uses the Google Books API to fetch book data. 
 *   Retrofit: A type-safe HTTP client for making API requests.
 *   Coil: A fast and efficient image loading library for Android.
