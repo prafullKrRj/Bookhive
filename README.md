@@ -1,6 +1,8 @@
 <h1 align="center" id="title">BookHive</h1>
 
-<p id="description">BookHive is an Android application that allows users to explore a wide variety of books using Google's Books API. The app provides a user-friendly interface to discover books based on categories and enables users to view detailed information about each book.</p>
+<p id="description">BookHive is an Android application that allows users to explore a wide variety of books using Google's Books API. The app provides a user-friendly interface to discover books based on categories and enables users to view detailed information about each book.
+API: https://www.googleapis.com/books/v1/volumes
+</p>
 
 <h2>Project Screenshots:</h2>
 
