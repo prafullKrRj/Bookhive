@@ -32,7 +32,7 @@ Here're some of the project's best features:
 
 <h2>🛠️ Installation Steps:</h2>
 
-<p>1. Download the APK file : - <a href="https://github.com/prafullKrRj/Bookhive/blob/master/BookHive.apk"> Click here: </a>  </p>
+<p>1. Download the APK file : - <a href="https://github.com/prafullKrRj/Bookhive/raw/master/BookHive.apk"> Click here: </a>  </p>
 
 <p>2. Install the application on your Android device.</p>
 
