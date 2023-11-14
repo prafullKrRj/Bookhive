@@ -4,7 +4,7 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://raw.githubusercontent.com/prafullKrRj/Bookhive/master/Images/TAB1.png" alt="project-screenshot" width="400" height="400/">
+<img src="https://raw.githubusercontent.com/prafullKrRj/Bookhive/master/Images/TAB1.png" alt="project-screenshot" width="609" height="426/">
 
   
   
