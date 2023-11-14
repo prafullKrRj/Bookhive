@@ -1,5 +1,6 @@
 package com.example.bookhive.ui.screens.main.components
 
+import androidx.compose.material3.AlertDialog
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
@@ -34,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,10 +62,52 @@ fun AppBar() {
             Spacer(modifier = Modifier.width(6.dp))
             AppName()
         }
-      //  MainScreenMenu(modifier = Modifier)
+        About()
     }
 }
 
+@Composable
+fun About() {
+    var openDialog by remember { mutableStateOf(false) }
+    IconButton(
+        onClick = {
+                  openDialog = true
+        },
+        modifier = Modifier
+    ) {
+        Icon(imageVector = Icons.Default.Info, contentDescription = null, modifier = Modifier)
+    }
+    if (openDialog) {
+        var openDialog by remember { mutableStateOf(true) }
+
+        if (openDialog) {
+            AlertDialog(
+                onDismissRequest = { openDialog = false },
+                icon = { Icon(imageVector = Icons.Filled.Info, contentDescription = "Info") },
+                title = {
+                    Text(text = "About")
+                },
+                text = {
+                    Text(
+                        text = stringResource(id = R.string.about)
+                    )
+                },
+                confirmButton = {
+
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = {
+                            openDialog = false
+                        }
+                    ) {
+                        Text("Dismiss")
+                    }
+                }
+            )
+        }
+    }
+}
 @Composable
 fun MainScreenMenu(modifier: Modifier) {
     var expanded by remember { mutableStateOf(false) }

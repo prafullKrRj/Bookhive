@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BookHive</string>
+    <string name="about"> This application is used to provide details about any book available in this world.</string>
 </resources>
