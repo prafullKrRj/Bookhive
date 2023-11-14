@@ -30,7 +30,13 @@ Here're some of the project's best features:
 *   Expandable Categories: Users have the option to expand each category to see more books within a specific genre enhancing the browsing experience.
 *   Search Functionality: BookHive includes a search bar that allows users to search for books by entering keywords titles or authors. This feature provides a quick and efficient way to find specific books.
 
-  
+<h2>🛠️ Installation Steps:</h2>
+
+<p>1. Download the APK file : - <a href="https://github.com/prafullKrRj/Bookhive/blob/master/BookHive.apk"> Click here: </a>  </p>
+
+<p>2. Install the application on your Android device.</p>
+
+<p>3. Open the app and start exploring various books.</p>
   
 <h2>💻 Built with</h2>
 
