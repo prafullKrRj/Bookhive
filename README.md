@@ -5,8 +5,19 @@
 <h2>Project Screenshots:</h2>
 
 <img src="https://raw.githubusercontent.com/prafullKrRj/Bookhive/master/Images/TAB1.png" alt="project-screenshot" width="609" height="426/">
-
-  
+<table>
+  <tr>
+    <td>
+      <img src="https://raw.githubusercontent.com/prafullKrRj/Bookhive/master/Images/WhatsApp%20Image%202023-11-14%20at%2010.44.14_0fe17ae3.jpg" alt="project-screenshot" width="290" height="570">
+    </td>
+    <td>
+      <img src="https://raw.githubusercontent.com/prafullKrRj/Bookhive/master/Images/WhatsApp%20Image%202023-11-14%20at%2010.44.15_066bd41c.jpg" alt="project-screenshot" width="290" height="570">
+    </td>
+    <td>
+      <img src="https://raw.githubusercontent.com/prafullKrRj/Bookhive/master/Images/WhatsApp%20Image%202023-11-14%20at%2010.44.15_98049c28.jpg" alt="project-screenshot" width="290" height="570">
+    </td>
+  </tr>
+</table>
   
 <h2>🧐 Features</h2>
 
