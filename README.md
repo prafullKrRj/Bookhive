@@ -4,10 +4,7 @@
 API: https://www.googleapis.com/books/v1/volumes
 </p>
 <h2>Project Video</h2>
-<video width="640" height="360" controls>
-  <source src="https://www.youtube.com/watch?v=sEwiqI9DY-E" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/prafullKrRj/Bookhive/raw/master/Images/bookhive.mp4
 <h2>Project Screenshots:</h2>
 
 <img src="https://raw.githubusercontent.com/prafullKrRj/Bookhive/master/Images/TAB1.png" alt="project-screenshot" width="609" height="426/">
