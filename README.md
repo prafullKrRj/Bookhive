@@ -4,7 +4,7 @@
 API: https://www.googleapis.com/books/v1/volumes
 </p>
 <h2>Project Video</h2>
-<video src= "https://github.com/prafullKrRj/Bookhive/raw/master/Images/bookhive.mp4" alt="project-video">
+<video src= "https://github.com/prafullKrRj/Bookhive/raw/master/Images/bookhive.mp4" alt="project-video" width="1280" height = "720/">
 <h2>Project Screenshots:</h2>
 
 <img src="https://raw.githubusercontent.com/prafullKrRj/Bookhive/master/Images/TAB1.png" alt="project-screenshot" width="609" height="426/">
